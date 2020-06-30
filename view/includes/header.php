@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="/bocetarte/assets/dist/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 
 <body>

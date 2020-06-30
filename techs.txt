@@ -1,3 +1,4 @@
 Materialize CSS : UI FRAMEWORK
 AOS : Animations
 loading="lazy" : Lazy Loading
+ALERTS : Sweet Alert 2
