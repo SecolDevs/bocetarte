@@ -1,5 +1,4 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . '/bocetarte/path.php');
 require_once(MODEL_PATH . 'usuarioModel.php');
 
 class usuario_Controller{

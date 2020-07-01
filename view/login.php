@@ -1,6 +1,5 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/bocetarte/path.php');
-include_once(CONTROLLER_PATH . 'UsuarioController.php');
+include_once(CONTROLLER_PATH . 'usuarioController.php');
 $user = new usuario_Controller();
 ?>
 
@@ -36,6 +35,7 @@ $user = new usuario_Controller();
                         </div>
                     </form>
                 </div>
+                
                 <div id="signup" class="col s12">
                     <form class="col s12" action="" method="POST">
                         <div class="container">

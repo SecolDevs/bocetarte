@@ -1,20 +1,15 @@
 <?php
-//LLAMADA A ARCHIVO PATHS
-require_once($_SERVER['DOCUMENT_ROOT'] . '/bocetarte/path.php');
 
-class usuario_Model
-{
+class usuario_Model{
 
     //Constructor del metodo y llamada a conexion
-    function __construct()
-    {
+    function __construct(){
         require_once(MODEL_PATH . 'conexion.php');
         $this->db = Conexion::conectar();
     }
 
     //LISTAR USUARIOS
-    public function list_User($datos)
-    {
+    public function list_User($datos){
         if ($datos != null) {
             $query = $this->db->prepare("SELECT * FROM usuario WHERE nickUsuario = :nickUsuario");
             $query->bindParam(':nickUsuario', $datos["nickUsuario"], PDO::PARAM_STR);
@@ -26,8 +21,7 @@ class usuario_Model
     }
 
     //INSERTAR USUARIOS
-    public function insert_User($datos)
-    {
+    public function insert_User($datos){
         if ($datos != null) {
 
             $verificacion = $this->list_User($datos);
@@ -44,13 +38,13 @@ class usuario_Model
                 $query->bindParam(':visiUsuario', $datos["visiUsuario"], PDO::PARAM_STR);
 
                 return $query->execute() ? "Correcto" : "Incorrecto ";
+                $query -> null;
             }
         }
     }
 
     //INSERTAR ADMINISTRADORES
-    public function insert_Admin($datos)
-    {
+    public function insert_Admin($datos){
     }
 
     //LOGIN USER

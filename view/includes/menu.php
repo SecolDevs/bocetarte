@@ -5,7 +5,7 @@ session_start();
 
 ?>
 
-<div class="navbar-fixed" data-aos="fade-down">
+<div class="navbar-fixed animsition-overlay" data-animsition-overlay="true" data-aos="fade-down">
     <?php
     if (isset($_SESSION['nickname'])) {
         $username = $_SESSION['nickname'];
@@ -20,20 +20,19 @@ session_start();
     <nav>
         <div class="nav-wrapper red darken-4">
             <div class="container">
-                <a href="/bocetarte/" class="brand-logo">BOCETARTE</a>
+                <a href="/bocetarte/" class="brand-logo animsition-link">BOCETARTE</a>
                 <a href="#" data-target="mobile-aside" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="/bocetarte/">INICIO</a></li>
-                    <li><a href="?url=categorias">CATEGORIAS</a></li>
+                    <li><a href="/bocetarte/" class="animsition-link">INICIO</a></li>
+                    <li><a href="?url=categorias" class="animsition-link">CATEGORIAS</a></li>
                     <?php
                     if (isset($_SESSION['nickname'])) {
                         $username = $_SESSION['nickname'];
                         echo '<li><a class="dropdown-trigger" href="#!" data-target="dropdownUser"><i class="material-icons left">account_circle</i>' . $username . '<i class="material-icons right">arrow_drop_down</i></a></li>';
                     } else {
-                        echo '<li><a href="?url=login">ACCEDER</a></li>';
+                        echo '<li><a href="?url=login" class="animsition-link">ACCEDER</a></li>';
                     }
                     ?>
-
                 </ul>
             </div>
         </div>
