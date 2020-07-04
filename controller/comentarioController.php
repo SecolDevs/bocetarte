@@ -1,10 +1,10 @@
 <?php
-require_once(MODEL_PATH . 'categoriaModel.php');
+//require_once(MODEL_PATH . 'comentarioModel.php');
 
-class categoria_Controller{
+class comentario_Controller{
     
     function __construct(){
-        $this->categoria_Mod = new categoria_Model();
+        //$this->categoria_Mod = new categoria_Model();
     }
 
     //CREACION DE CATEGORIAS

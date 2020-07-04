@@ -1,14 +1,18 @@
 <?php
 
-include_once($_SERVER['DOCUMENT_ROOT'] . '/bocetarte/path.php');
-session_start();
+include_once(CONTROLLER_PATH . "publicacionController.php");
+$publicacion = new publicacion_Controller;
+
+include_once(CONTROLLER_PATH. "comentarioController.php");
+$comentario = new comentario_Controller;
 
 ?>
 
-<div class="navbar-fixed animsition-overlay" data-animsition-overlay="true" data-aos="fade-down">
+<div class="navbar-fixed">
     <?php
     if (isset($_SESSION['nickname'])) {
         $username = $_SESSION['nickname'];
+        $idUser = $_SESSION['id_Usuario'];
         echo '<ul id="dropdownUser" class="dropdown-content">
                         <li><a href="#!">MI CUENTA</a></li>
                         <li class="divider"></li>
@@ -20,10 +24,10 @@ session_start();
     <nav>
         <div class="nav-wrapper red darken-4">
             <div class="container">
-                <a href="/bocetarte/" class="brand-logo animsition-link">BOCETARTE</a>
+                <a href="index.php" class="brand-logo animsition-link">BOCETARTE</a>
                 <a href="#" data-target="mobile-aside" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="/bocetarte/" class="animsition-link">INICIO</a></li>
+                    <li><a href="index.php" class="animsition-link">INICIO</a></li>
                     <li><a href="?url=categorias" class="animsition-link">CATEGORIAS</a></li>
                     <?php
                     if (isset($_SESSION['nickname'])) {
@@ -39,11 +43,13 @@ session_start();
     </nav>
 </div>
 
-<?php echo isset($_SESSION['nickname']) ? '<div class="fixed-action-btn">
-  <a class="btn-floating btn-large red" href="?url=newPublicacion">
-    <i class="large material-icons">add</i>
-  </a>
-</div>' : ""; ?>
+<?php if (!isset($_GET['url'])) {
+    echo isset($_SESSION['nickname']) ? '<div class="fixed-action-btn">
+    <a class="btn-floating btn-large red" href="?url=newPublicacion">
+      <i class="large material-icons">add</i>
+    </a>
+  </div>' : "";
+}  ?>
 
 <ul class="sidenav" id="mobile-aside">
     <li><a href="#inicio">INICIO</a></li>

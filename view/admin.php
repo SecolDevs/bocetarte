@@ -14,8 +14,13 @@ $categoria = new categoria_Controller();
             </div>
             <div class="input-field">
                 <i class="material-icons prefix">lock</i>
-                <input id="icon_lock" type="text" name="tipoCategoria" class="validate" required="">
-                <label for="icon_lock">TIPO CATEGORIA</label>
+                <select name="tipoCategoria" required="">
+                    <option value="" disabled selected></option>
+                    <option value="img">IMAGEN</option>
+                    <option value="video">VIDEO</option>
+                    <option value="audio">AUDIO</option>
+                </select>
+                <label>CATEGORIA</label>
             </div>
             <button class="btn waves-effect waves-light right" type="submit" name="categoria">CREAR
                 <i class="material-icons right">send</i>

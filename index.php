@@ -1,10 +1,12 @@
 <?php 
 
+session_start();
+
 include_once('path.php');
 
 include_once(VIEW_PATH . 'includes/header.php');
 
-require(VIEW_PATH . 'includes/menu.php');
+include_once(VIEW_PATH . 'includes/menu.php');
 
 if (isset($_GET['url'])) {
     $url = $_GET['url'];

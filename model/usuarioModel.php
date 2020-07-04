@@ -48,12 +48,10 @@ class usuario_Model{
     }
 
     //LOGIN USER
-    public function login_User($datos)
-    {
+    public function login_User($datos){
         if ($datos != null) {
             $verificacion = $this->list_User($datos);
             if ($verificacion['nickUsuario'] == $datos['nickUsuario'] && $verificacion['password'] == $datos['password']) {
-                session_start();
                 $_SESSION['nickname'] = $verificacion['nickUsuario'];
                 $_SESSION['id_Usuario'] = $verificacion['idUsuario'];
                 return "Correcto";
@@ -64,12 +62,10 @@ class usuario_Model{
     }
 
     //ELIMINAR USUARIOS
-    public function delete_User($datos)
-    {
+    public function delete_User($datos){
     }
 
     //MODIFICAR USUARIOS
-    public function update_User($datos)
-    {
+    public function update_User($datos){
     }
 }

@@ -27,13 +27,14 @@ class usuario_Controller{
         if ($_POST['password'] == $_POST['confirmpassword']) {
             $respuesta = $this->usuario_Mod->insert_User($datos);
             if($respuesta == "Correcto"){
+                mkdir(ASSETS_PATH."images/user/".$datos['nickUsuario']);
                 echo "<script>
                 Swal.fire({
                     icon: 'success',
                     title: 'Correcto',
                     text: 'Usuario Creado Correctamente!'
                 }).then(function() {
-                    location.href = '/bocetarte/?url=login';
+                    location.href = 'index.php?url=login';
                 });
             </script>";
             }else{
@@ -43,7 +44,7 @@ class usuario_Controller{
                     title: 'Incorrecto',
                     text: 'Nickname o Email ya existen, verifique e intente nuevamente!'
                 }).then(function() {
-                    location.href = '/bocetarte/?url=login';
+                    location.href = 'index.php?url=login';
                 });
             </script>";
             }
@@ -54,7 +55,7 @@ class usuario_Controller{
                     title: 'Incorrecto',
                     text: 'Las Contraseñas no Coinciden!'
                 }).then(function() {
-                    location.href = '/bocetarte/?url=login';
+                    location.href = 'index.php?url=login';
                 });
             </script>";
         }
@@ -70,9 +71,8 @@ class usuario_Controller{
         );
         echo "<h1>NICKNAME:".$_POST['nickname']."</h1>";
         $respuesta = $this->usuario_Mod->login_User($datos);
-        echo "<script>alert('NICKNAME:".$respuesta."');</script>";
         if ($respuesta == "Correcto") {            
-            header("location: index");
+            echo "<script>location.href = 'index.php' </script>";
         }else {
             echo "<script>
                 Swal.fire({
@@ -80,7 +80,7 @@ class usuario_Controller{
                     title: 'Incorrecto',
                     text: 'Nickname o Contraseña no coinciden, Verifique e intente nuevamente!'
                 }).then(function() {
-                    location.href = '/bocetarte/?url=login';
+                    location.href = 'index.php?url=login';
                 });
             </script>";
         }
@@ -90,7 +90,7 @@ class usuario_Controller{
     //LOGOUT DE USUARIOS
     public function logout_User(){
         session_destroy();
-        header("location: index");
+        echo "<script>location.href = 'index.php' </script>";
     }
 
     //MODIFICACION DE CUENTAS

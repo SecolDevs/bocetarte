@@ -8,7 +8,7 @@ class categoria_Model{
         $this->db = Conexion::conectar();
     }
 
-    //LISTAR USUARIOS
+    //LISTAR CATEGORIAS
     public function list_Categoria($datos){
         if ($datos != null) {
             $query = $this->db->prepare("SELECT * FROM categoria WHERE nombreCategoria = :nombreCategoria");
@@ -17,10 +17,14 @@ class categoria_Model{
             return $query->fetch();
             $query = null;
         } else {
+            $query = $this->db->prepare("SELECT * FROM categoria;");
+            $query->execute();
+            return $query->fetchAll();
+            $query = null;
         }
     }
 
-    //INSERTAR USUARIOS
+    //INSERTAR CATEGORIAS
     public function insert_Categoria($datos){
         if ($datos != null) {
 
@@ -40,13 +44,19 @@ class categoria_Model{
         }
     }
 
-    //ELIMINAR USUARIOS
+    //ELIMINAR CATEGORIA
     public function delete_Categoria($datos){
+        if ($datos != null) {
+            $query = $this->db->prepare("DELETE * FROM categoria WHERE idCategoria = :idCategoria");
+            $query->bindParam(':idCategoria', $datos["idCategoria"], PDO::PARAM_STR);
 
+            return $query->execute() ? "Correcto" : "Incorrecto";
+            $query -> null;
+        }
     }
 
-    //MODIFICAR USUARIOS
+    //MODIFICAR CATEGORIA
     public function update_Categoria($datos){
-
+        
     }
 }

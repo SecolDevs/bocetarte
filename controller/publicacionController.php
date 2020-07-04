@@ -1,36 +1,48 @@
 <?php
-require_once(MODEL_PATH . 'categoriaModel.php');
+require_once(MODEL_PATH . 'publicacionModel.php');
 
-class categoria_Controller{
+class publicacion_Controller{
     
     function __construct(){
-        $this->categoria_Mod = new categoria_Model();
+        $this->publicacion_Mod = new publicacion_Model();
     }
 
     //CREACION DE CATEGORIAS
-    public function insert_Categoria(){
+    public function insert_Publicacion(){
         if (isset($_POST['categoria'])) {
-
-            $datos = array("nombreCategoria" => strtoupper($_POST['nombreCategoria']),
-            "tipoCategoria" => $_POST['tipoCategoria']
+            //Fecha Actual
+            date_default_timezone_set("America/Bogota");
+            $fechaPublicacion = date("Y-m-d") . ' ' . date("H:i:s");
+            //DATOS DE IMG
+            $ruta = ASSETS_PATH . "images/user/" .$_POST['nickUsuario']. "/" . $_FILES["archivoPublicacion"]["name"];
+            $archivoPublicacion = $_POST['nickUsuario']."/".$_FILES["archivoPublicacion"]["name"];
+            //Array Datos
+            $datos = array("archivoPublicacion" => $archivoPublicacion,
+            "tituloPublicacion" => strtoupper($_POST['tituloPublicacion']),
+            "descripcionPublicacion" => ucfirst($_POST['descripcionPublicacion']),
+            "estadoPublicacion" => "Activo",
+            "fechaPublicacion" => $fechaPublicacion,
+            "idUsuario" => $_POST['idUsuario'],
+            "idCategoria" => $_POST['idCategoria']
             );
-            $respuesta = $this->categoria_Mod->insert_Categoria($datos);
+            $respuesta = $this->publicacion_Mod->insert_Publicacion($datos);
             if($respuesta == "Correcto"){
+                move_uploaded_file($_FILES["archivoPublicacion"]['tmp_name'], $ruta);
                 echo "<script>
                 Swal.fire({
                     icon: 'success',
                     title: 'Correcto',
-                    text: 'Categoria Creada Correctamente!'
+                    text: 'Publicacion Creada Correctamente!'
                 }).then(function() {
                     location.href = '/bocetarte/';
                 });
             </script>";
-            }else{
+        }else{
                 echo "<script>
                 Swal.fire({
                     icon: 'error',
                     title: 'Incorrecto',
-                    text: 'No se ha creado la categoria, verifique e intente nuevamente!'
+                    text: 'No se ha creado la publicacion, verifique e intente nuevamente!'
                 }).then(function() {
                     location.href = '/bocetarte/';
                 });
@@ -40,13 +52,13 @@ class categoria_Controller{
     }
 
     //MODIFICACION DE CATEGORIAS
-    public function update_Categoria(){
+    public function update_Publicacion(){
         if (isset($_POST['updateCategoria'])) {
             $datos = array("idCategoria" => $_POST['idCategoria'],
             "nombreCategoria" => $_POST['nombreCategoria'],
             "tipoCategoria" => $_POST['tipoCategoria']
             );
-            $respuesta = $this->categoria_Mod->update_Categoria($datos);
+            $respuesta = $this->publicacion_Mod->update_Publicacion($datos);
             if ($respuesta == "Correcto") {
                 echo "<script>
                 Swal.fire({
@@ -72,10 +84,10 @@ class categoria_Controller{
     }
 
     //ELIMINAR CATEGORIAS
-    public function delete_Categoria(){
+    public function delete_Publicacion(){
         if (isset($_POST['deleteCategoria'])) {
             $datos = array("idCategoria" => $_POST['idCategoria']);
-            $respuesta = $this->categoria_Mod->delete_Categoria($datos);
+            $respuesta = $this->publicacion_Mod->delete_Publicacion($datos);
             if ($respuesta == "Correcto") {
                 echo "<script>
                 Swal.fire({
@@ -100,9 +112,9 @@ class categoria_Controller{
         }
     }
 
-    //LISTAR CATEGORIAS
-    public function list_Categoria($datos){
-        $respuesta = $this->categoria_Mod->list_Categoria($datos);
+    //LISTAR PUBLICACIONES
+    public function list_Publicacion($datos){
+        $respuesta = $this->publicacion_Mod->list_Publicacion($datos);
         return $respuesta;
     }
     
