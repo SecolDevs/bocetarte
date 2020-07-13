@@ -5,6 +5,7 @@ $(document).ready(function() {
     $(".dropdown-trigger").dropdown();
     $('select').formSelect();
     $('textarea#textarea2').characterCounter();
+    $('.materialboxed').materialbox();
 });
 
 AOS.init({

@@ -1,36 +1,41 @@
 <?php
-//require_once(MODEL_PATH . 'comentarioModel.php');
+require_once(MODEL_PATH . 'comentarioModel.php');
 
 class comentario_Controller{
     
     function __construct(){
-        //$this->categoria_Mod = new categoria_Model();
+        $this->comentario_Mod = new comentario_Model();
     }
 
     //CREACION DE CATEGORIAS
-    public function insert_Categoria(){
-        if (isset($_POST['categoria'])) {
-
-            $datos = array("nombreCategoria" => strtoupper($_POST['nombreCategoria']),
-            "tipoCategoria" => $_POST['tipoCategoria']
+    public function insert_Comentario(){
+        if (isset($_POST['comentario'])) {
+            date_default_timezone_set("America/Bogota");
+            $fecha = date("Y-m-d") . ' ' . date("H:i:s");
+            
+            $datos = array("contenidoComentario" => ucfirst($_POST['contenidoComentario']),
+            "fechaComentario" => $fecha,
+            "idUsuario" => $_POST['idUsuario'],
+            "idPublicacion" => $_POST['idPublicacion']
             );
-            $respuesta = $this->categoria_Mod->insert_Categoria($datos);
+            $respuesta = $this->comentario_Mod->insert_Comentario($datos);
             if($respuesta == "Correcto"){
                 echo "<script>
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Correcto',
-                    text: 'Categoria Creada Correctamente!'
-                }).then(function() {
-                    location.href = '/bocetarte/';
-                });
-            </script>";
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Correcto',
+                        text: 'Comentario Insertado Correctamente!'
+                      }).then(function(){ 
+                        location.href = '/bocetarte/';
+                        }
+                     );
+                    </script>";
             }else{
                 echo "<script>
                 Swal.fire({
                     icon: 'error',
                     title: 'Incorrecto',
-                    text: 'No se ha creado la categoria, verifique e intente nuevamente!'
+                    text: 'No se ha creado el comentario, verifique e intente nuevamente!'
                 }).then(function() {
                     location.href = '/bocetarte/';
                 });
@@ -39,39 +44,7 @@ class comentario_Controller{
         }
     }
 
-    //MODIFICACION DE CATEGORIAS
-    public function update_Categoria(){
-        if (isset($_POST['updateCategoria'])) {
-            $datos = array("idCategoria" => $_POST['idCategoria'],
-            "nombreCategoria" => $_POST['nombreCategoria'],
-            "tipoCategoria" => $_POST['tipoCategoria']
-            );
-            $respuesta = $this->categoria_Mod->update_Categoria($datos);
-            if ($respuesta == "Correcto") {
-                echo "<script>
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Correcto',
-                    text: 'Categoria Modificada Correctamente!'
-                }).then(function() {
-                    location.href = '/bocetarte/';
-                });
-                </script>";
-            }else {
-                    echo "<script>
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Incorrecto',
-                    text: 'No se ha modificado la categoria, verifique e intente nuevamente!'
-                }).then(function() {
-                    location.href = '/bocetarte/';
-                });
-                </script>";
-            }
-        }
-    }
-
-    //ELIMINAR CATEGORIAS
+    //ELIMINAR COMENTARIOS
     public function delete_Categoria(){
         if (isset($_POST['deleteCategoria'])) {
             $datos = array("idCategoria" => $_POST['idCategoria']);
@@ -101,8 +74,8 @@ class comentario_Controller{
     }
 
     //LISTAR CATEGORIAS
-    public function list_Categoria($datos){
-        $respuesta = $this->categoria_Mod->list_Categoria($datos);
+    public function list_Comentario($datos){
+        $respuesta = $this->comentario_Mod->list_Comentario($datos);
         return $respuesta;
     }
     

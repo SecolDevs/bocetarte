@@ -11,7 +11,7 @@ class publicacion_Model{
     //LISTAR PUBLICACIONES
     public function list_Publicacion($datos){
         if ($datos != null) {
-            $query = $this->db->prepare("SELECT * FROM publicacion WHERE idPublicacion = :idPublicacion;");
+            $query = $this->db->prepare("SELECT * FROM publicacion p INNER JOIN usuario u INNER JOIN categoria c WHERE p.idPublicacion = :idPublicacion AND p.idUsuario = u.idUsuario AND p.idCategoria = c.idCategoria;");
             $query->bindParam(':idPublicacion', $datos["idPublicacion"], PDO::PARAM_STR);
             $query->execute();
             return $query->fetch();

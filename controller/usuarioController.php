@@ -34,7 +34,7 @@ class usuario_Controller{
                     title: 'Correcto',
                     text: 'Usuario Creado Correctamente!'
                 }).then(function() {
-                    location.href = 'index.php?url=login';
+                    location.href = '/bocetarte/url=login';
                 });
             </script>";
             }else{
@@ -44,7 +44,7 @@ class usuario_Controller{
                     title: 'Incorrecto',
                     text: 'Nickname o Email ya existen, verifique e intente nuevamente!'
                 }).then(function() {
-                    location.href = 'index.php?url=login';
+                    location.href = '/bocetarte/?url=login';
                 });
             </script>";
             }
@@ -55,7 +55,7 @@ class usuario_Controller{
                     title: 'Incorrecto',
                     text: 'Las Contraseñas no Coinciden!'
                 }).then(function() {
-                    location.href = 'index.php?url=login';
+                    location.href = '/bocetarte/?url=login';
                 });
             </script>";
         }
@@ -72,7 +72,7 @@ class usuario_Controller{
         echo "<h1>NICKNAME:".$_POST['nickname']."</h1>";
         $respuesta = $this->usuario_Mod->login_User($datos);
         if ($respuesta == "Correcto") {            
-            echo "<script>location.href = 'index.php' </script>";
+            echo "<script>location.href = '/bocetarte/' </script>";
         }else {
             echo "<script>
                 Swal.fire({
@@ -80,7 +80,7 @@ class usuario_Controller{
                     title: 'Incorrecto',
                     text: 'Nickname o Contraseña no coinciden, Verifique e intente nuevamente!'
                 }).then(function() {
-                    location.href = 'index.php?url=login';
+                    location.href = '/bocetarte/?url=login';
                 });
             </script>";
         }
@@ -90,7 +90,7 @@ class usuario_Controller{
     //LOGOUT DE USUARIOS
     public function logout_User(){
         session_destroy();
-        echo "<script>location.href = 'index.php' </script>";
+        echo "<script>location.href = '/bocetarte/' </script>";
     }
 
     //MODIFICACION DE CUENTAS
