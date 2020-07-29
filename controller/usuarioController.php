@@ -34,7 +34,7 @@ class usuario_Controller{
                     title: 'Correcto',
                     text: 'Usuario Creado Correctamente!'
                 }).then(function() {
-                    location.href = '/bocetarte/url=login';
+                    location.href = '/bocetarte/?url=login';
                 });
             </script>";
             }else{
