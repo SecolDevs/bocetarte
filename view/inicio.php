@@ -15,7 +15,7 @@
 
 <div class="red darken-3">
     <div class="container center"><br>
-        <h3 style="color: white;">LO MEJOR DE BOCETARTE <a class="waves-effect waves-light btn-large" href="">Ver Mas</a></h3>
+        <h3 style="color: white;">LO MEJOR DE MI POLLA <a class="waves-effect waves-light btn-large" href="">Ver Mas</a></h3>
     </div>
     <div class="row" data-aos="fade-in">
         <?php
