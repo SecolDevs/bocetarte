@@ -1,32 +1,33 @@
 <?php
 require_once(MODEL_PATH . 'publicacionModel.php');
 
-class publicacion_Controller{
-    
-    function __construct(){
+class publicacion_Controller {
+
+    function __construct() {
         $this->publicacion_Mod = new publicacion_Model();
     }
 
     //CREACION DE CATEGORIAS
-    public function insert_Publicacion(){
+    public function insert_Publicacion() {
         if (isset($_POST['categoria'])) {
             //Fecha Actual
             date_default_timezone_set("America/Bogota");
             $fechaPublicacion = date("Y-m-d") . ' ' . date("H:i:s");
             //DATOS DE IMG
-            $ruta = ASSETS_PATH . "images/user/" .$_POST['nickUsuario']. "/" . $_FILES["archivoPublicacion"]["name"];
-            $archivoPublicacion = $_POST['nickUsuario']."/".$_FILES["archivoPublicacion"]["name"];
+            $ruta = ASSETS_PATH . "images/user/" . $_POST['nickUsuario'] . "/" . $_FILES["archivoPublicacion"]["name"];
+            $archivoPublicacion = $_POST['nickUsuario'] . "/" . $_FILES["archivoPublicacion"]["name"];
             //Array Datos
-            $datos = array("archivoPublicacion" => $archivoPublicacion,
-            "tituloPublicacion" => strtoupper($_POST['tituloPublicacion']),
-            "descripcionPublicacion" => ucfirst($_POST['descripcionPublicacion']),
-            "estadoPublicacion" => "Activo",
-            "fechaPublicacion" => $fechaPublicacion,
-            "idUsuario" => $_POST['idUsuario'],
-            "idCategoria" => $_POST['idCategoria']
+            $datos = array(
+                "archivoPublicacion" => $archivoPublicacion,
+                "tituloPublicacion" => strtoupper($_POST['tituloPublicacion']),
+                "descripcionPublicacion" => ucfirst($_POST['descripcionPublicacion']),
+                "estadoPublicacion" => "Activo",
+                "fechaPublicacion" => $fechaPublicacion,
+                "idUsuario" => $_POST['idUsuario'],
+                "idCategoria" => $_POST['idCategoria']
             );
             $respuesta = $this->publicacion_Mod->insert_Publicacion($datos);
-            if($respuesta == "Correcto"){
+            if ($respuesta == "Correcto") {
                 move_uploaded_file($_FILES["archivoPublicacion"]['tmp_name'], $ruta);
                 echo "<script>
                 Swal.fire({
@@ -37,7 +38,7 @@ class publicacion_Controller{
                     location.href = '/bocetarte/';
                 });
             </script>";
-        }else{
+            } else {
                 echo "<script>
                 Swal.fire({
                     icon: 'error',
@@ -52,11 +53,12 @@ class publicacion_Controller{
     }
 
     //MODIFICACION DE CATEGORIAS
-    public function update_Publicacion(){
+    public function update_Publicacion() {
         if (isset($_POST['updateCategoria'])) {
-            $datos = array("idCategoria" => $_POST['idCategoria'],
-            "nombreCategoria" => $_POST['nombreCategoria'],
-            "tipoCategoria" => $_POST['tipoCategoria']
+            $datos = array(
+                "idCategoria" => $_POST['idCategoria'],
+                "nombreCategoria" => $_POST['nombreCategoria'],
+                "tipoCategoria" => $_POST['tipoCategoria']
             );
             $respuesta = $this->publicacion_Mod->update_Publicacion($datos);
             if ($respuesta == "Correcto") {
@@ -69,8 +71,8 @@ class publicacion_Controller{
                     location.href = '/bocetarte/';
                 });
                 </script>";
-            }else {
-                    echo "<script>
+            } else {
+                echo "<script>
                 Swal.fire({
                     icon: 'error',
                     title: 'Incorrecto',
@@ -84,7 +86,7 @@ class publicacion_Controller{
     }
 
     //ELIMINAR CATEGORIAS
-    public function delete_Publicacion(){
+    public function delete_Publicacion() {
         if (isset($_POST['deleteCategoria'])) {
             $datos = array("idCategoria" => $_POST['idCategoria']);
             $respuesta = $this->publicacion_Mod->delete_Publicacion($datos);
@@ -98,7 +100,7 @@ class publicacion_Controller{
                     location.href = '/bocetarte/';
                 });
                 </script>";
-            }else {
+            } else {
                 echo "<script>
                 Swal.fire({
                     icon: 'error',
@@ -113,9 +115,13 @@ class publicacion_Controller{
     }
 
     //LISTAR PUBLICACIONES
-    public function list_Publicacion($datos){
+    public function list_Publicacion($datos) {
         $respuesta = $this->publicacion_Mod->list_Publicacion($datos);
         return $respuesta;
     }
-    
+
+    public function list_PublicacionRand($datos) {
+        $respuesta = $this->publicacion_Mod->list_PublicacionRand($datos);
+        return $respuesta;
+    }
 }

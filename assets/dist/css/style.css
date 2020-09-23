@@ -1,3 +1,33 @@
-body{
-    overflow-x: hidden;
+body {
+  overflow-x: hidden;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #4db6ac;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #009688;
+}
+
+.fondoN {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 15px;
+  border-radius: 20px;
+}
+
+.sombreado {
+  filter: drop-shadow(5px 5px 2px rgba(0, 0, 0, 0.5));
 }

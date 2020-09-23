@@ -1,0 +1,7 @@
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^bocetarte\.yordicoder\.com$
+RewriteRule ^/?$ "https\:\/\/yordicoder\.com\/bocetarte" [R=301,L]
+
+#RewriteRule ^(.*) index.php?url=$1 [L,QSA]
+#RewriteRule ^(.*)/^(.*) index.php?url=$1&id=$2 [L,QSA]

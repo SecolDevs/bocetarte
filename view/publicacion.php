@@ -16,32 +16,43 @@ if (isset($_GET['id'])) {
             ?>
         </div>
     </div>
-    <div class="card-panel col xl4">
-        <h1><?php echo $row['tituloPublicacion']; ?><small> By <?php echo $row['nickUsuario']; ?></small></h1>
+    <div class="card-panel col xl4 fullscreen">
+        <h3><?php echo $row['tituloPublicacion']; ?><small> By <?php echo '<a href="?url=profile&nickname=' . $row['nickUsuario'] . '" >' . $row['nickUsuario'] . '</a>'; ?></small></h3>
         <hr>
         <p>Publicado: <?php echo $row['fechaPublicacion']; ?> | Categoria: <?php echo $row['nombreCategoria']; ?></p>
         <h4><?php echo $row['descripcionPublicacion']; ?></h4>
         <hr>
         <form method="POST" enctype="multipart/form-data">
-            <button class="waves-effect waves-light btn-large" type="submit"><i class="material-icons left">favorite_border</i>150</button>
+            <?php
+            $num = $like->list_Like($row['idPublicacion']);
+            ?>
+            <button class="waves-effect waves-light btn-large" name="like" type="submit"><i class="material-icons left">favorite_border</i><?php echo $num['0']; ?></button>
+            <?php if (isset($_SESSION['nickname'])) { ?>
+                <input type="hidden" name="idUsuario" value="<?php echo $_SESSION['id_Usuario']; ?>">
+                <input type="hidden" name="idPublicacion" value="<?php echo $row['idPublicacion']; ?>">
+            <?php
+                $like->insert_Like();
+            } else {
+            } ?>
         </form>
         <div>
             <h5>COMENTARIOS</h5>
-            <div style="height: 300px; overflow-y: scroll;">
-            <?php foreach ($comentario->list_Comentario($row['idPublicacion']) as $com) {
-                echo '<div>
+            <div style="height: auto; overflow-y: scroll;">
+                <?php
+                foreach ($comentario->list_Comentario($row['idPublicacion']) as $com) {
+                    echo '<div>
                 <i class="material-icons left">face</i>
-                <h6>'.$com['nickUsuario'].' <small>'.$com['fechaComentario'].'</small></h6>
-                <p>'.$com['contenidoComentario'].'</p>
+                <h6>' . $com['nickUsuario'] . ' <small>' . $com['fechaComentario'] . '</small></h6>
+                <p>' . $com['contenidoComentario'] . '</p>
             </div>
             <hr>';
-            } ?>
+                } ?>
             </div>
         </div>
         <div id="comentar">
             <h5>DEJA TU COMENTARIO:</h5>
             <?php if (isset($_SESSION['nickname'])) { ?>
-                <form class="col s12" action="" method="POST">
+                <form class="col s12" method="POST">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">chat_bubble_outline</i>
                         <textarea id="textarea2" name="contenidoComentario" class="materialize-textarea" data-length="200"></textarea>

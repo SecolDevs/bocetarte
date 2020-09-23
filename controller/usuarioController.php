@@ -1,34 +1,35 @@
 <?php
 require_once(MODEL_PATH . 'usuarioModel.php');
 
-class usuario_Controller{
-    
-    function __construct(){
+class usuario_Controller {
+
+    function __construct() {
         $this->usuario_Mod = new usuario_Model();
     }
 
     //CREACION DE CUENTAS
-    public function insert_User(){
+    public function insert_User() {
         if (isset($_POST['signup'])) {
 
             if (isset($_POST['des'])) {
                 $des = "YES";
-            }else{
+            } else {
                 $des = "NO";
             }
 
-            $datos = array("nickUsuario" => strtoupper($_POST['nickname']),
-            "password" => $_POST['password'],
-            "emailUsuario" => $_POST['email'],
-            "telefonoUsuario" => $_POST['telefono'],
-            "visiUsuario" => $des
-        );
+            $datos = array(
+                "nickUsuario" => strtoupper($_POST['nickname']),
+                "password" => $_POST['password'],
+                "emailUsuario" => $_POST['email'],
+                "telefonoUsuario" => $_POST['telefono'],
+                "visiUsuario" => $des
+            );
 
-        if ($_POST['password'] == $_POST['confirmpassword']) {
-            $respuesta = $this->usuario_Mod->insert_User($datos);
-            if($respuesta == "Correcto"){
-                mkdir(ASSETS_PATH."images/user/".$datos['nickUsuario']);
-                echo "<script>
+            if ($_POST['password'] == $_POST['confirmpassword']) {
+                $respuesta = $this->usuario_Mod->insert_User($datos);
+                if ($respuesta == "Correcto") {
+                    mkdir(ASSETS_PATH . "images/user/" . $datos['nickUsuario']);
+                    echo "<script>
                 Swal.fire({
                     icon: 'success',
                     title: 'Correcto',
@@ -37,8 +38,8 @@ class usuario_Controller{
                     location.href = '/bocetarte/?url=login';
                 });
             </script>";
-            }else{
-                echo "<script>
+                } else {
+                    echo "<script>
                 Swal.fire({
                     icon: 'error',
                     title: 'Incorrecto',
@@ -47,9 +48,9 @@ class usuario_Controller{
                     location.href = '/bocetarte/?url=login';
                 });
             </script>";
-            }
-        }else{
-            echo "<script>
+                }
+            } else {
+                echo "<script>
                 Swal.fire({
                     icon: 'error',
                     title: 'Incorrecto',
@@ -58,44 +59,43 @@ class usuario_Controller{
                     location.href = '/bocetarte/?url=login';
                 });
             </script>";
-        }
-            
+            }
         }
     }
 
     //LOGEO DE USUARIOS
-    public function login_User(){
+    public function login_User() {
         if (isset($_POST['login'])) {
-            $datos = array("nickUsuario" => strtoupper($_POST['nickname']),
-            "password" => $_POST['password']
-        );
-        echo "<h1>NICKNAME:".$_POST['nickname']."</h1>";
-        $respuesta = $this->usuario_Mod->login_User($datos);
-        if ($respuesta == "Correcto") {            
-            echo "<script>location.href = '/bocetarte/' </script>";
-        }else {
-            echo "<script>
+            $datos = array(
+                "nickUsuario" => strtoupper($_POST['nickname']),
+                "password" => $_POST['password']
+            );
+            echo "<h1>NICKNAME:" . $_POST['nickname'] . "</h1>";
+            $respuesta = $this->usuario_Mod->login_User($datos);
+            if ($respuesta == "Correcto") {
+                echo "<script>location.href = '/bocetarte/' </script>";
+            } else {
+                echo "<script>
                 Swal.fire({
-                    icon: 'error',
                     title: 'Incorrecto',
-                    text: 'Nickname o Contraseña no coinciden, Verifique e intente nuevamente!'
-                }).then(function() {
-                    location.href = '/bocetarte/?url=login';
-                });
+                    text: 'Nickname o Contraseña no coinciden, Verifique e intente nuevamente!',
+                    icon: 'error',
+                    confirmButtonText: 'Entiendo'
+                }).then((e) => {
+                    e.isConfirmed ? location.href = '/bocetarte/?url=login' : location.href = '/bocetarte/?url=login'
+                })
             </script>";
-        }
+            }
         }
     }
 
     //LOGOUT DE USUARIOS
-    public function logout_User(){
+    public function logout_User() {
         session_destroy();
         echo "<script>location.href = '/bocetarte/' </script>";
     }
 
     //MODIFICACION DE CUENTAS
-    public function update_User(){
-
+    public function update_User() {
     }
-    
 }

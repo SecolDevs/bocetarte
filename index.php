@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 session_start();
 
@@ -10,11 +10,9 @@ include_once(VIEW_PATH . 'includes/menu.php');
 
 if (isset($_GET['url'])) {
     $url = $_GET['url'];
-    include_once('view/'.$url.'.php');
-}else {
+    $url == '' ? include_once('view/inicio.php') : include_once('view/' . $url . '.php');
+} else {
     include_once('view/inicio.php');
 }
 
 include_once(VIEW_PATH . 'includes/footer.php');
-
-?>

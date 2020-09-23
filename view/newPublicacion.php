@@ -5,10 +5,10 @@ $publicacion = new publicacion_Controller();
 $categoria = new categoria_Controller();
 ?>
 
-<div>
-    <h1>Publicaciones</h1>
-    <form class="col s12" action="" enctype="multipart/form-data" method="POST">
-        <div class="container">
+<div class="card-panel red lighten-2">
+    <div class="card-panel white">
+        <h3>NUEVA PUBLICACION:</h3>
+        <form class="col s12" action="" enctype="multipart/form-data" method="POST">
             <div class="input-field">
                 <i class="material-icons prefix">account_circle</i>
                 <input id="nombreP" name="tituloPublicacion" type="text" class="validate" required="">
@@ -31,10 +31,10 @@ $categoria = new categoria_Controller();
             <div class="input-field">
                 <i class="material-icons prefix">lock</i>
                 <select name="idCategoria" required="">
-                    <option value="" disabled selected></option>
-                    <?php 
+                    <option value="" disabled selected>Seleccione:</option>
+                    <?php
                     foreach ($categoria->list_Categoria(null) as $row) {
-                        echo "<option value=".$row['idCategoria'].">".$row['nombreCategoria']."</option>";
+                        echo "<option value=" . $row['idCategoria'] . ">" . $row['nombreCategoria'] . "</option>";
                     }
                     ?>
                 </select>
@@ -48,6 +48,6 @@ $categoria = new categoria_Controller();
                 $publicacion->insert_Publicacion();
                 ?>
             </button>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>

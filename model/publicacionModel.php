@@ -1,15 +1,15 @@
 <?php
 
-class publicacion_Model{
+class publicacion_Model {
 
     //Constructor del metodo y llamada a conexion
-    function __construct(){
+    function __construct() {
         require_once(MODEL_PATH . 'conexion.php');
         $this->db = Conexion::conectar();
     }
 
     //LISTAR PUBLICACIONES
-    public function list_Publicacion($datos){
+    public function list_Publicacion($datos) {
         if ($datos != null) {
             $query = $this->db->prepare("SELECT * FROM publicacion p INNER JOIN usuario u INNER JOIN categoria c WHERE p.idPublicacion = :idPublicacion AND p.idUsuario = u.idUsuario AND p.idCategoria = c.idCategoria;");
             $query->bindParam(':idPublicacion', $datos["idPublicacion"], PDO::PARAM_STR);
@@ -24,8 +24,19 @@ class publicacion_Model{
         }
     }
 
+    // LISTAR PUBLICACIONES RANDOM
+    public function list_PublicacionRand($datos) {
+        if ($datos != null) {
+        } else {
+            $query = $this->db->prepare("SELECT * FROM publicacion p INNER JOIN usuario u WHERE p.idUsuario = u.idUsuario ORDER BY rand() LIMIT 5;");
+            $query->execute();
+            return $query->fetchALL();
+            $query = null;
+        }
+    }
+
     //INSERTAR PUBLICACIONES
-    public function insert_Publicacion($datos){
+    public function insert_Publicacion($datos) {
         if ($datos != null) {
             $query = $this->db->prepare("INSERT INTO publicacion(archivoPublicacion, tituloPublicacion, descripcionPublicacion, fechaPublicacion, estadoPublicacion, idUsuario, idCategoria) VALUES (:archivoPublicacion, :tituloPublicacion, :descripcionPublicacion, :fechaPublicacion, :estadoPublicacion, :idUsuario, :idCategoria);");
             $query->bindParam(':archivoPublicacion', $datos["archivoPublicacion"], PDO::PARAM_STR);
@@ -36,23 +47,22 @@ class publicacion_Model{
             $query->bindParam(':idUsuario', $datos["idUsuario"], PDO::PARAM_STR);
             $query->bindParam(':idCategoria', $datos["idCategoria"], PDO::PARAM_STR);
             return $query->execute() ? "Correcto" : "Incorrecto ";
-            $query -> null;            
+            $query->null;
         }
     }
 
     //ELIMINAR PUBLICACIONES
-    public function delete_Publicacion($datos){
+    public function delete_Publicacion($datos) {
         if ($datos != null) {
             $query = $this->db->prepare("DELETE * FROM categoria WHERE idCategoria = :idCategoria");
             $query->bindParam(':idCategoria', $datos["idCategoria"], PDO::PARAM_STR);
 
             return $query->execute() ? "Correcto" : "Incorrecto";
-            $query -> null;
+            $query->null;
         }
     }
 
     //MODIFICAR PUBLICACIONES
-    public function update_Publicacion($datos){
-        
+    public function update_Publicacion($datos) {
     }
 }
